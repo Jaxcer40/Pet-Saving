@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "X:\\UT_CANCUN\\INTEGRADOR 2\\api\\api.csproj": {}
+    "X:\\UT_CANCUN\\Pet Saving\\api\\api.csproj": {}
   },
   "projects": {
-    "X:\\UT_CANCUN\\INTEGRADOR 2\\api\\api.csproj": {
+    "X:\\UT_CANCUN\\Pet Saving\\api\\api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "X:\\UT_CANCUN\\INTEGRADOR 2\\api\\api.csproj",
+        "projectUniqueName": "X:\\UT_CANCUN\\Pet Saving\\api\\api.csproj",
         "projectName": "api",
-        "projectPath": "X:\\UT_CANCUN\\INTEGRADOR 2\\api\\api.csproj",
+        "projectPath": "X:\\UT_CANCUN\\Pet Saving\\api\\api.csproj",
         "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "X:\\UT_CANCUN\\INTEGRADOR 2\\api\\obj\\",
+        "outputPath": "X:\\UT_CANCUN\\Pet Saving\\api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -58,7 +58,7 @@
               "target": "Package",
               "version": "[9.0.0, )"
             },
-            "Microsoft.EntityFrameworkCore.SqlServer": {
+            "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[9.0.0, )"
             },
@@ -68,7 +68,7 @@
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[10.1.0, )"
+              "version": "[6.5.0, )"
             }
           },
           "imports": [

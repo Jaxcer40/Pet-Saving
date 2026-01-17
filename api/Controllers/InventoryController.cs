@@ -1,0 +1,43 @@
+using System;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using api.Data;
+
+namespace api.Controllers
+{
+    [Route("api/inventory")]
+    [ApiController]
+    public class InventoryController : ControllerBase
+    {
+        private readonly ApplicationDBContext _context;
+        public InventoryController(ApplicationDBContext context)
+        {
+            _context = context;
+        }
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var inventories= _context.Inventories.ToList();
+
+            return Ok(inventories);
+        
+        }
+
+        [HttpGet ("{Id}")]
+        public IActionResult GetById([FromRoute] int Id)
+        {
+            var inventory = _context.Inventories.Find(Id);
+            
+            if(inventory== null)
+            {
+                return NotFound();
+            }
+
+            return Ok(inventory);
+        }
+
+    }
+}
