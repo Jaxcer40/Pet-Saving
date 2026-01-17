@@ -8,36 +8,38 @@ using api.Mappers;
 
 namespace api.Controllers
 {
-    [Route("api/status")]
+    [Route("api/Admission")]
     [ApiController]
-    public class StatusController : ControllerBase
+    public class AdmissionController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
-        public StatusController(ApplicationDBContext context)
+        public AdmissionController(ApplicationDBContext context)
         {
-            _context=context;
+            _context = context;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            var statuses=_context.Statuses.ToList()
-            .Select(s=>s.ToReadStatusDto());
+            var admissions= _context.Admissions.ToList();
+           
 
-            return Ok(statuses);
+            return Ok(admissions);
+        
         }
 
         [HttpGet ("{Id}")]
         public IActionResult GetById([FromRoute] int Id)
         {
-            var status = _context.Statuses.Find(Id);
+            var admission = _context.Admissions.Find(Id);
             
-            if(status== null)
+            if(admission== null)
             {
                 return NotFound();
             }
 
-            return Ok(status.ToReadStatusDto());
+            return Ok(admission);
         }
+
     }
 }

@@ -17,5 +17,7 @@ namespace api.Dtos.Inventory
 
         public int Stock {set; get; }
 
+        //Aqui se oculta el proveedor
+
     }
 }

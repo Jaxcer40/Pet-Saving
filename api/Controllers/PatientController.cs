@@ -8,36 +8,38 @@ using api.Mappers;
 
 namespace api.Controllers
 {
-    [Route("api/status")]
+    [Route("api/Patient")]
     [ApiController]
-    public class StatusController : ControllerBase
+    public class PatientController : ControllerBase
     {
         private readonly ApplicationDBContext _context;
-        public StatusController(ApplicationDBContext context)
+        public PatientController(ApplicationDBContext context)
         {
-            _context=context;
+            _context = context;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            var statuses=_context.Statuses.ToList()
-            .Select(s=>s.ToReadStatusDto());
+            var patients= _context.Patients.ToList();
+           
 
-            return Ok(statuses);
+            return Ok(patients);
+        
         }
 
         [HttpGet ("{Id}")]
         public IActionResult GetById([FromRoute] int Id)
         {
-            var status = _context.Statuses.Find(Id);
+            var patient = _context.Patients.Find(Id);
             
-            if(status== null)
+            if(patient== null)
             {
                 return NotFound();
             }
 
-            return Ok(status.ToReadStatusDto());
+            return Ok(patient);
         }
+
     }
 }
