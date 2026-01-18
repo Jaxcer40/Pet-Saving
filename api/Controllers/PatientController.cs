@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading;
 using api.Data;
 using api.Mappers;
+using api.Dtos.Patient;
 
 namespace api.Controllers
 {
@@ -21,7 +22,8 @@ namespace api.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var patients= _context.Patients.ToList();
+            var patients= _context.Patients.ToList()
+            .Select(s=>s.ToReadPatientDto());
            
 
             return Ok(patients);
@@ -38,7 +40,16 @@ namespace api.Controllers
                 return NotFound();
             }
 
-            return Ok(patient);
+            return Ok(patient.ToReadPatientDto());
+        }
+
+        [HttpPost]
+        public IActionResult Create([FromBody] CreatePatientDto patientDto)
+        {
+            var patientModel = patientDto.ToPatientFromCreateDto();
+            _context.Patients.Add(patientModel);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetById),new {id = patientModel.Id}, patientModel.ToReadPatientDto());
         }
 
     }

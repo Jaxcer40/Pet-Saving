@@ -43,5 +43,14 @@ namespace api.Controllers
             return Ok(appointment.ToReadAppointmetDto());
         }
 
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateAppointmetDto appointmetDto)
+        {
+            var appointmetModel= appointmetDto.ToAppointmetFromCreateDto();
+            _context.Appointmets.Add(appointmetModel);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetById), new {id= appointmetModel.Id}, appointmetModel.ToReadAppointmetDto());
+        }
+
     }
 }

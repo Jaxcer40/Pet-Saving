@@ -2,18 +2,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace api.Dtos.Patient
 {
-    public class ReadPatientDto
+    public class CreatePatientDto
     {
-        public int Id {get; set;}
+        //Llave foranea a Client
+        [Required]
+       public int ClientId {get; set; }
 
-        //Llave foranea hacia client
-        public ClientSummaryDto Client {get; set; }=null!;
-
+        [Required]
         public string Name { get; set; } = string.Empty;
 
+        [Required]
         public string Species { get; set; } = string.Empty;
 
         public string Breed { get; set; } = string.Empty;
@@ -22,15 +24,9 @@ namespace api.Dtos.Patient
 
         public DateTime BirthDate { get; set;  }
 
+        [Required]
         public decimal Weight { get; set; }
 
         public DateTime AdoptedDate { get; set; }
-    }
-
-    public class ClientSummaryDto
-    {
-        public string FirtsName {set; get;}= string.Empty;
-
-        public string LastName {set; get;}= string.Empty;
     }
 }
