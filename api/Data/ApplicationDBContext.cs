@@ -20,6 +20,8 @@ namespace api.Data
         public DbSet<Inventory> Inventories{set; get;} 
         public DbSet<Patient> Patients{set; get;} 
         public DbSet<Status> Statuses{set; get;} 
+        public DbSet<Client> Clients{set;get;}
+        public DbSet<Vet> Vets{set;get;}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

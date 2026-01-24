@@ -72,21 +72,18 @@ namespace api.Controllers
 
             if(updateDto.ClientId.HasValue)
             {
-                //Aplicar cuando esté Client
+                var clientExists = _context.Clients.Any(c => c.Id == updateDto.ClientId.Value);
+                if (!clientExists)
+                    return BadRequest("El ClientId no existe.");
 
-                // var clientExists = _context.Clients.Any(p => p.Id == updateDto.ClientId.Value);
-                // if (!clientExists)
-                // return BadRequest("El ClientId no existe.");
                 appointmetModel.ClientId=updateDto.ClientId.Value;
             }
 
             if(updateDto.VetId.HasValue)
             {
-                //Aplicar cuando esté Vet
-
-                // var vetExists = _context.Vets.Any(p => p.Id == updateDto.VetId.Value);
-                // if (!vetExists)
-                // return BadRequest("El VetId no existe.");
+                var vetExists = _context.Vets.Any(v => v.Id == updateDto.VetId.Value);
+                if (!vetExists)
+                    return BadRequest("El VetId no existe.");
                 appointmetModel.VetId=updateDto.VetId.Value;
             }
 

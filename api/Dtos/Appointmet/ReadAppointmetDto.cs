@@ -37,15 +37,17 @@ namespace api.Dtos.Appointmet
 
     public class ClientSummaryDto
     {
-        public string FirtsName {set; get;}= string.Empty;
+        public string FirstName {set; get;}= string.Empty;
 
         public string LastName {set; get;}= string.Empty;
     }
 
     public class VetSummaryDto
     {
-        public string FirtsName {set; get;}= string.Empty;
+        public string FirstName {set; get;}= string.Empty;
 
         public string LastName {set; get;}= string.Empty;
+
+        public string Specialization {set; get;}=string.Empty;
     }
 }

@@ -29,21 +29,18 @@ namespace api.Mappers
 
                 },
 
-                //AGREGAR CUANDO ESTÉ VET
+                Vet = new VetSummaryDto
+                {
+                    FirstName= appointmetModel.Vet.FirstName,
+                    LastName= appointmetModel.Vet.LastName,
+                    Specialization=appointmetModel.Vet.Specialization
+                },
 
-                // Vet = new VetSummaryDto
-                // {
-                //     FirstName= appointmetModel.Vet.FirstName,
-                //     LastName= appointmetModel.Vet.LastName
-                // },
-
-                //AGREGAR CUANDO ESTÉ Client
-
-                // Vet = new VetSummaryDto
-                // {
-                //     FirstName= appointmetModel.Vet.FirstName,
-                //     LastName= appointmetModel.Vet.LastName
-                // }
+                Client = new ClientSummaryDto
+                {
+                    FirstName= appointmetModel.Client.FirstName,
+                    LastName= appointmetModel.Client.LastName,
+                }
             };
         }
         public static Appointmet ToAppointmetFromCreateDto(this CreateAppointmetDto appointmetDto)

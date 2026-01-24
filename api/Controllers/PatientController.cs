@@ -68,11 +68,9 @@ namespace api.Controllers
 
             if(updateDto.ClientId.HasValue)
             {
-                //Aplicar cuando esté Client
-
-                // var clientExists = _context.Clients.Any(p => p.Id == updateDto.ClientId.Value);
-                // if (!clientExists)
-                // return BadRequest("El ClientId no existe.");
+                var clientExists = _context.Clients.Any(c => c.Id == updateDto.ClientId.Value);
+                if (!clientExists)
+                    return BadRequest("El ClientId no existe.");
                 patientModel.ClientId=updateDto.ClientId.Value;
             }
 

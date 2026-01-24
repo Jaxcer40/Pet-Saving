@@ -69,19 +69,16 @@ namespace api.Controllers
             {
                 var patientExists = _context.Patients.Any(p => p.Id == updateDto.PatientId.Value);
                 if (!patientExists)
-                return BadRequest("El PatientId no existe.");
+                    return BadRequest("El PatientId no existe.");
 
                 admissionModel.PatientId=updateDto.PatientId.Value;
             }
 
             if(updateDto.VetId.HasValue)
             {
-                //Aplicar cuando esté Vet
-
-                // var vetExists = _context.Vets.Any(p => p.Id == updateDto.VetId.Value);
-                // if (!vetExists)
-                // return BadRequest("El VetId no existe.");
-
+                var vetExists = _context.Vets.Any(v => v.Id == updateDto.VetId.Value);
+                if (!vetExists)
+                    return BadRequest("El VetId no existe.");
 
                 admissionModel.VetId= updateDto.VetId.Value;
             }

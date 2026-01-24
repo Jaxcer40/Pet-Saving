@@ -29,7 +29,7 @@ namespace api.Dtos.Patient
 
     public class ClientSummaryDto
     {
-        public string FirtsName {set; get;}= string.Empty;
+        public string FirstName {set; get;}= string.Empty;
 
         public string LastName {set; get;}= string.Empty;
     }

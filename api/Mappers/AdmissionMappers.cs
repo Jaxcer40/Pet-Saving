@@ -26,17 +26,14 @@ namespace api.Mappers
                     Species = admissionModel.Patient.Species
                 },
 
-                //AGREGAR CUANDO ESTÉ VET
-
-                // Vet = new VetSummaryDto
-                // {
-                //     FirstName= admissionModel.Vet.FirstName,
-                //     LastName= admissionModel.Vet.LastName
-                // }
-
-
+                Vet= new VetSummaryDto
+                {
+                    FirstName=admissionModel.Vet.FirstName,
+                    LastName=admissionModel.Vet.LastName,
+                    Specialization=admissionModel.Vet.Specialization
+                }
+          
             };
-
         }
 
         public static Admission ToAdmissionFromCreateDto(this CreateAdmissionDto admissionDto)

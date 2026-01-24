@@ -23,13 +23,11 @@ namespace api.Mappers
                 Weight=patientModel.Weight,
                 AdoptedDate=patientModel.AdoptedDate,
 
-                //AGREGAR CUANDO ESTÉ CLIENT
-
-                // Client= new PatientSummaryDto
-                // {
-                //     FirstName=patientModel.Client.FirstName,
-                //     LastName=patientModel.Client.LastName
-                // }
+                Client= new ClientSummaryDto
+                {
+                    FirstName=patientModel.Client.FirstName,
+                    LastName=patientModel.Client.LastName
+                }
             };
         }
 

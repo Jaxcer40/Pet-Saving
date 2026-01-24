@@ -35,8 +35,9 @@ namespace api.Dtos.Admission
 
     public class VetSummaryDto
     {
-        public string Name { get; set; } = string.Empty;
-        public string Specialty { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName {get;set;}= string.Empty;
+        public string Specialization { get; set; } = string.Empty;
     }
 
 }
