@@ -79,5 +79,23 @@ namespace api.Controllers
 
             return Ok(statusModel.ToReadStatusDto());
         }
+
+        //Delete por id
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var statusModel= _context.Statuses.FirstOrDefault(x=>x.Id==id);
+            if (statusModel == null)
+            {
+                return NotFound();
+            }
+
+            _context.Statuses.Remove(statusModel);
+
+            _context.SaveChanges();
+
+            return NoContent();
+        }
     }
 }

@@ -85,5 +85,23 @@ namespace api.Controllers
 
             return Ok(inventoryModel.ToReadInventoryDto());
         }
+
+        //Delete por id
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var inventoryModel= _context.Inventories.FirstOrDefault(x=>x.Id==id);
+            if (inventoryModel == null)
+            {
+                return NotFound();
+            }
+
+            _context.Inventories.Remove(inventoryModel);
+
+            _context.SaveChanges();
+
+            return NoContent();
+        }
     }
 }

@@ -89,5 +89,23 @@ namespace api.Controllers
             _context.SaveChanges();
             return Ok(vetModel.ToReadVetDto());
         }
+
+        //Delete por id
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var vetModel= _context.Vets.FirstOrDefault(x=>x.Id==id);
+            if (vetModel == null)
+            {
+                return NotFound();
+            }
+
+            _context.Vets.Remove(vetModel);
+
+            _context.SaveChanges();
+
+            return NoContent();
+        }
     }
 }

@@ -98,7 +98,24 @@ namespace api.Controllers
             _context.SaveChanges();
 
             return Ok(patientModel.ToReadPatientDto());
+        }
 
+        //Delete por id
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var patientModel= _context.Patients.FirstOrDefault(x=>x.Id==id);
+            if (patientModel == null)
+            {
+                return NotFound();
+            }
+
+            _context.Patients.Remove(patientModel);
+
+            _context.SaveChanges();
+
+            return NoContent();
         }
     }    
 }

@@ -92,5 +92,23 @@ namespace api.Controllers
 
             return Ok(clientModel.ToReadClientDto());
         }
+
+        //Delete por id
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var clientModel= _context.Clients.FirstOrDefault(x=>x.Id==id);
+            if (clientModel == null)
+            {
+                return NotFound();
+            }
+
+            _context.Clients.Remove(clientModel);
+
+            _context.SaveChanges();
+
+            return NoContent();
+        }
     }
 }

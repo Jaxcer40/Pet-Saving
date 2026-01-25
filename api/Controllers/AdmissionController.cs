@@ -100,5 +100,23 @@ namespace api.Controllers
             return Ok(admissionModel.ToReadAdmissionDto());
         }
 
+        //Delete por id
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var admissionModel= _context.Admissions.FirstOrDefault(x=>x.Id==id);
+            if (admissionModel == null)
+            {
+                return NotFound();
+            }
+
+            _context.Admissions.Remove(admissionModel);
+
+            _context.SaveChanges();
+
+            return NoContent();
+        }
+
     }
 }

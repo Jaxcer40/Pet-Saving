@@ -108,5 +108,23 @@ namespace api.Controllers
 
         }
 
+        //Delete por id
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var appointmetModel= _context.Appointmets.FirstOrDefault(x=>x.Id==id);
+            if (appointmetModel == null)
+            {
+                return NotFound();
+            }
+
+            _context.Appointmets.Remove(appointmetModel);
+
+            _context.SaveChanges();
+
+            return NoContent();
+        }
+
     }
 }
