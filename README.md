@@ -4,7 +4,7 @@ Proyecto de .net webapi para Pet Saving.
 
 ## Inicializar base de datos
 
-1. Agrega miraciones
+1. Agrega migraciones
 
    ```bash
    dotnet ef migrations add Init
