@@ -33,6 +33,7 @@ namespace PetSavingBackend.Controllers
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            
             var client= await _clientRepo.GetByIdAsync(id);
 
             if (client == null)
@@ -46,6 +47,10 @@ namespace PetSavingBackend.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateClientDTO clientDTO)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             // Validar que el DTO no sea nulo
             if (clientDTO == null)
                 return BadRequest("El cuerpo de la solicitud está vacío.");
@@ -58,6 +63,10 @@ namespace PetSavingBackend.Controllers
         [HttpPatch("{id:int}")]
         public async Task<IActionResult> Patch(int id, [FromBody]UpdateClientDTO updateDTO)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (updateDTO == null)
                 return BadRequest("El cuerpo de la solicitud está vacío.");
 
