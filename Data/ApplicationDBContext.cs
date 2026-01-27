@@ -44,7 +44,48 @@ namespace PetSavingBackend.Data
             };
             // Agrega los roles al modelo.
             builder.Entity<Inventory>().HasData(products);
+
+            // Admission <-> Patient
+            builder.Entity<Admission>()
+                .HasOne(a => a.Patient)
+                .WithMany(p => p.Admissions)
+                .HasForeignKey(a => a.PatientId);
+
+            // Admission <-> Vet
+            builder.Entity<Admission>()
+                .HasOne(a => a.Vet)
+                .WithMany(v => v.Admissions)
+                .HasForeignKey(a => a.VetId);
+
+            // Admission <-> Status
+            builder.Entity<Admission>()
+                .HasMany(a => a.Statuses)
+                .WithOne(s => s.Admission)
+                .HasForeignKey(s => s.AdmissionId);
+
+            // Appointment <-> Patient
+            builder.Entity<Appointmet>()
+                .HasOne(a => a.Patient)
+                .WithMany(p => p.Appointmets)
+                .HasForeignKey(a => a.PatientId);
+
+            // Appointment <-> Client
+            builder.Entity<Appointmet>()
+                .HasOne(a => a.Client)
+                .WithMany(c => c.Appointmets)
+                .HasForeignKey(a => a.ClientId);
+
+            // Appointment <-> Vet
+            builder.Entity<Appointmet>()
+                .HasOne(a => a.Vet)
+                .WithMany(v => v.Appointmets)
+                .HasForeignKey(a => a.VetId);
+
+            // Patient <-> Client
+            builder.Entity<Patient>()
+                .HasOne(p => p.Client)
+                .WithMany(c => c.Patients)
+                .HasForeignKey(p => p.ClientId);
         }
-    
     }
 }
