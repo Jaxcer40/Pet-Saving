@@ -22,9 +22,10 @@ namespace PetSavingBackend.DTOs.Appointmet
 
         public DateTime AppointmentDate { get; set; }
 
-        [Required]
+        [Required (ErrorMessage ="El diagnostico es obligatorio")]
         public string Diagnosis { get; set; } = string.Empty;
 
+        [Required (ErrorMessage ="El tratamiento es obligatorio")]
         public string Treatment { get; set; } = string.Empty;
 
         public string Notes { get; set; } = string.Empty;

@@ -16,14 +16,17 @@ namespace PetSavingBackend.DTOs.Admission
         [Required]
         public int VetId { get; set; }
 
-        [Required]
+        [Required (ErrorMessage ="La fecha de ingreso es obligatorio")]
         public DateTime AdmissionDate { get; set; }
 
         public DateTime? DischargeDate { get; set; }
 
-        [Required]
+        [Required (ErrorMessage ="El motivo de ingreso es obligatorio")]
         public string AdmissionReason { get; set; } = string.Empty;
 
+        [Required (ErrorMessage ="El numero de jaula es obligatorio")]
+        [RegularExpression (@"^\d+$", ErrorMessage ="El numero de jaula solo puede contener numeros")]
+        [MaxLength(20, ErrorMessage ="El numero de jaula no puede superar los 20 caracteres")]
         public string CageNumber { get; set; } = string.Empty;
     }
 

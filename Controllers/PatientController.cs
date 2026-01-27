@@ -32,7 +32,7 @@ namespace PetSavingBackend.Controllers
 
 
         //Get por Id
-        [HttpGet ("{id}")]
+        [HttpGet ("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var patient = await _patientRepo.GetByIdAsync(id);
@@ -57,7 +57,7 @@ namespace PetSavingBackend.Controllers
             return CreatedAtAction(nameof(GetById),new {id = patientModel.Id}, patientModel.ToReadPatientDTO());
         }
 
-        [HttpPatch("{id}")]
+        [HttpPatch("{id:int}")]
         public async Task<IActionResult> Patch(int id, [FromBody] UpdatePatientDTO updateDTO)
         {
             if (updateDTO == null)
@@ -75,7 +75,7 @@ namespace PetSavingBackend.Controllers
 
         //Delete por id
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var patientModel=  await _patientRepo.DeleteAsync(id);

@@ -16,8 +16,6 @@ namespace PetSavingBackend.Models
         public int AdmissionId { get; set; }
         public Admission Admission { get; set; } = null!;
 
-        [Required (ErrorMessage ="El estado actual es obligatorio")]
-        [MaxLength(100, ErrorMessage ="El estado actual no puede superar los 100 caracteres")]
         public string CurrentStatus { get; set; } = string.Empty;
 
         public string Notes { get; set; } = string.Empty;
