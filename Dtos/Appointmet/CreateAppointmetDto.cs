@@ -8,9 +8,9 @@ namespace PetSavingBackend.DTOs.Appointmet
 {
     public class CreateAppointmetDTO
     {
-        //llave foranea hacia Patient
+        //llave foranea hacia Pet
         [Required]
-        public int PatientId {get; set;}
+        public int PetId {get; set;}
 
         //llave foranea hacia Client
         [Required]

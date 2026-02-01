@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using PetSavingBackend.Data;
 using PetSavingBackend.Interfaces;
 using PetSavingBackend.DTOs;
-using PetSavingBackend.DTOs.Patient;
+using PetSavingBackend.DTOs.Pet;
 using Microsoft.EntityFrameworkCore;
 using PetSavingBackend.Mappers;
 using PetSavingBackend.Models;
@@ -13,65 +13,65 @@ using PetSavingBackend.Helper;
 
 namespace PetSavingBackend.Repositories
 {
-    public class PatientRepository : IPatientRepository
+    public class PetRepository : IPetRepository
     {
         private readonly ApplicationDBContext _context;
-        public PatientRepository(ApplicationDBContext context)
+        public PetRepository(ApplicationDBContext context)
         {
             _context=context;
         }
 
-        public async Task<Patient> CreateAsync(Patient patientModel)
+        public async Task<Pet> CreateAsync(Pet petModel)
         {
-            await _context.Patients.AddAsync(patientModel);
+            await _context.Pets.AddAsync(petModel);
             await _context.SaveChangesAsync();
-            return patientModel;
+            return petModel;
         }
 
-        public async Task<Patient?> DeleteAsync(int id)
+        public async Task<Pet?> DeleteAsync(int id)
         {
-            var patientModel= await _context.Patients.FirstOrDefaultAsync(x=>x.Id==id);
+            var petModel= await _context.Pets.FirstOrDefaultAsync(x=>x.Id==id);
 
-            if (patientModel == null)
+            if (petModel == null)
             {
                 return null;
             }
 
-            _context.Patients.Remove(patientModel);
+            _context.Pets.Remove(petModel);
             await _context.SaveChangesAsync();
-            return patientModel;
+            return petModel;
         }
 
-        public async Task<List<Patient>> GetAllAsync()
+        public async Task<List<Pet>> GetAllAsync()
         {
-            return await _context.Patients.Include(p => p.Client).ToListAsync();
+            return await _context.Pets.Include(p => p.Client).ToListAsync();
         }
 
-        public async Task<Patient?> GetByIdAsync(int id)
+        public async Task<Pet?> GetByIdAsync(int id)
         {
-            return await _context.Patients
+            return await _context.Pets
                 .Include(p => p.Client)
                 .FirstOrDefaultAsync(p=>p.Id==id);
         }
 
-        public async Task<PagedResponse<Patient>> GetPagedAsync(int pageNumber, int pageSize)
+        public async Task<PagedResponse<Pet>> GetPagedAsync(int pageNumber, int pageSize)
         {
-            var query = _context.Patients.Include(p => p.Client).AsQueryable();
+            var query = _context.Pets.Include(p => p.Client).OrderBy(p => p.Id).AsQueryable();
 
             var totalRecords = await query.CountAsync();
 
-            var patients = await query
+            var pets = await query
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
 
-            return new PagedResponse<Patient>(patients, totalRecords, pageNumber, pageSize);
+            return new PagedResponse<Pet>(pets, totalRecords, pageNumber, pageSize);
         }
 
-        public async Task<Patient?> PatchAsync(int id, UpdatePatientDTO updateDTO)
+        public async Task<Pet?> PatchAsync(int id, UpdatePetDTO updateDTO)
         {
-            var existingPatient=await _context.Patients.FindAsync(id);
-            if (existingPatient==null) return null;
+            var existingPet=await _context.Pets.FindAsync(id);
+            if (existingPet==null) return null;
             
             if(updateDTO.ClientId.HasValue)
             {
@@ -79,39 +79,45 @@ namespace PetSavingBackend.Repositories
                 if (!clientExists)
                     throw new ArgumentException("El ClientId no existe.");
 
-                existingPatient.ClientId=updateDTO.ClientId.Value;
+                existingPet.ClientId=updateDTO.ClientId.Value;
             }
 
             if(!string.IsNullOrWhiteSpace(updateDTO.Name))
-                existingPatient.Name=updateDTO.Name;
+                existingPet.Name=updateDTO.Name;
             
             if (!string.IsNullOrWhiteSpace(updateDTO.Species))
-                existingPatient.Species=updateDTO.Species;
+                existingPet.Species=updateDTO.Species;
             
             if(!string.IsNullOrWhiteSpace(updateDTO.Breed))
-                existingPatient.Breed=updateDTO.Breed;
+                existingPet.Breed=updateDTO.Breed;
             
             if(!string.IsNullOrWhiteSpace(updateDTO.Gender))
-                existingPatient.Gender=updateDTO.Gender;
+                existingPet.Gender=updateDTO.Gender;
             
             if (updateDTO.BirthDate.HasValue && updateDTO.BirthDate.Value > DateTime.UtcNow)
                 throw new ArgumentException("La fecha de nacimiento no puede ser futura");
 
 
             if(updateDTO.BirthDate.HasValue)
-                existingPatient.BirthDate=updateDTO.BirthDate.Value;
+                existingPet.BirthDate=updateDTO.BirthDate.Value;
             
             if (updateDTO.Weight.HasValue && updateDTO.Weight.Value < 0)
                 throw new ArgumentException("El peso no puede ser menor a 0");
 
             if(updateDTO.Weight.HasValue)
-                existingPatient.Weight=updateDTO.Weight.Value;
+                existingPet.Weight=updateDTO.Weight.Value;
 
             if(updateDTO.AdoptedDate.HasValue)
-                existingPatient.AdoptedDate=updateDTO.AdoptedDate.Value;
+                existingPet.AdoptedDate=updateDTO.AdoptedDate.Value;
+            
+            if (updateDTO.Rating.HasValue && updateDTO.Rating.Value < 0)
+                throw new ArgumentException("El rating no puede ser negativo");
+
+            if(updateDTO.Rating.HasValue)
+                existingPet.Rating=updateDTO.Rating.Value;
 
             await _context.SaveChangesAsync();
-            return existingPatient;
+            return existingPet;
         }
     }
 }

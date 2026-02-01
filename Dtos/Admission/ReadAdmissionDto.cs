@@ -9,8 +9,8 @@ namespace PetSavingBackend.DTOs.Admission
     {
         public int Id { get; set; }
 
-        // llave foranea hacia Patient
-        public PatientSummaryDTO Patient {get; set;}=null!;
+        // llave foranea hacia Pet
+        public PetSummaryDTO Pet {get; set;}=null!;
 
         // llave foranea hacia Vet
         public VetSummaryDTO Vet {get; set;}=null!;
@@ -26,7 +26,7 @@ namespace PetSavingBackend.DTOs.Admission
 
     }
 
-    public class PatientSummaryDTO
+    public class PetSummaryDTO
     {
         public string Name {get; set;} = string.Empty;
         public string Species { get; set; } = string.Empty;

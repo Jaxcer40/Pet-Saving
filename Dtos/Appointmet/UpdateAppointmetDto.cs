@@ -8,8 +8,8 @@ namespace PetSavingBackend.DTOs.Appointmet
 {
     public class UpdateAppointmetDTO
     {
-        //llave foranea hacia Patient
-        public int? PatientId {get; set;}
+        //llave foranea hacia Pet
+        public int? PetId {get; set;}
 
         //llave foranea hacia Client
         public int? ClientId {get; set;}

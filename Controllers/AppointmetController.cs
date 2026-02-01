@@ -33,7 +33,7 @@ namespace PetSavingBackend.Controllers
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var appointment = await _context.Appointmets
-            .Include(a=>a.Patient).Include(a=>a.Client)
+            .Include(a=>a.Pet).Include(a=>a.Client)
             .Include(a=>a.Vet).FirstOrDefaultAsync(a=>a.Id==id);
             
             if(appointment== null)
@@ -51,15 +51,15 @@ namespace PetSavingBackend.Controllers
             if (appointmetDTO == null)
                 return BadRequest("El cuerpo de la solicitud está vacío.");
 
-            // Validar que el PatientId exista
-            var patientExists = await _context.Patients.AnyAsync(p => p.Id == appointmetDTO.PatientId);
-            if (!patientExists)
-                return BadRequest("El PatientId no existe.");
+            // Validar que el PetId exista
+            var petExists = await _context.Pets.AnyAsync(p => p.Id == appointmetDTO.PetId);
+            if (!petExists)
+                return BadRequest("El PetId no existe.");
 
             // Validar que el ClientId exista
             var clientExists = await _context.Clients.AnyAsync(c => c.Id == appointmetDTO.ClientId);
             if (!clientExists)
-                return BadRequest("El PatientId no existe.");
+                return BadRequest("El ClientId no existe.");
 
             // Validar que el VetId exista (si lo envías en el DTO)
             var vetExists = await _context.Vets.AnyAsync(v => v.Id == appointmetDTO.VetId);
@@ -82,12 +82,12 @@ namespace PetSavingBackend.Controllers
                 return NotFound();
             }
 
-            if(updateDTO.PatientId.HasValue)
+            if(updateDTO.PetId.HasValue)
             {
-                var patientExists = await _context.Patients.AnyAsync(p => p.Id == updateDTO.PatientId.Value);
-                if (!patientExists)
-                return BadRequest("El PatientId no existe.");
-                appointmetModel.PatientId=updateDTO.PatientId.Value;
+                var petExists = await _context.Pets.AnyAsync(p => p.Id == updateDTO.PetId.Value);
+                if (!petExists)
+                return BadRequest("El PetId no existe.");
+                appointmetModel.PetId=updateDTO.PetId.Value;
             }
 
             if(updateDTO.ClientId.HasValue)

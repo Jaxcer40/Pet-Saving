@@ -18,7 +18,7 @@ namespace PetSavingBackend.Data
         public DbSet<Admission> Admissions{set; get;} 
         public DbSet<Appointmet> Appointmets{set; get;} 
         public DbSet<Inventory> Inventories{set; get;} 
-        public DbSet<Patient> Patients{set; get;} 
+        public DbSet<Pet> Pets{set; get;} 
         public DbSet<Status> Statuses{set; get;} 
         public DbSet<Client> Clients{set;get;}
         public DbSet<Vet> Vets{set;get;}
@@ -45,11 +45,11 @@ namespace PetSavingBackend.Data
             // Agrega los roles al modelo.
             builder.Entity<Inventory>().HasData(products);
 
-            // Admission <-> Patient
+            // Admission <-> Pet
             builder.Entity<Admission>()
-                .HasOne(a => a.Patient)
+                .HasOne(a => a.Pet)
                 .WithMany(p => p.Admissions)
-                .HasForeignKey(a => a.PatientId);
+                .HasForeignKey(a => a.PetId);
 
             // Admission <-> Vet
             builder.Entity<Admission>()
@@ -63,11 +63,11 @@ namespace PetSavingBackend.Data
                 .WithOne(s => s.Admission)
                 .HasForeignKey(s => s.AdmissionId);
 
-            // Appointment <-> Patient
+            // Appointment <-> Pet
             builder.Entity<Appointmet>()
-                .HasOne(a => a.Patient)
+                .HasOne(a => a.Pet)
                 .WithMany(p => p.Appointmets)
-                .HasForeignKey(a => a.PatientId);
+                .HasForeignKey(a => a.PetId);
 
             // Appointment <-> Client
             builder.Entity<Appointmet>()
@@ -81,10 +81,10 @@ namespace PetSavingBackend.Data
                 .WithMany(v => v.Appointmets)
                 .HasForeignKey(a => a.VetId);
 
-            // Patient <-> Client
-            builder.Entity<Patient>()
+            // Pet <-> Client
+            builder.Entity<Pet>()
                 .HasOne(p => p.Client)
-                .WithMany(c => c.Patients)
+                .WithMany(c => c.Pets)
                 .HasForeignKey(p => p.ClientId);
         }
     }

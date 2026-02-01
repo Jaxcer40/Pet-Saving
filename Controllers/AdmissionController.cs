@@ -35,7 +35,7 @@ namespace PetSavingBackend.Controllers
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
             var admission = await _context.Admissions
-            .Include(a => a.Patient).Include(a => a.Vet)
+            .Include(a => a.Pet).Include(a => a.Vet)
             .FirstOrDefaultAsync(a => a.Id == id);
             
             if(admission== null)
@@ -55,10 +55,10 @@ namespace PetSavingBackend.Controllers
             if (admissionDTO == null)
                 return BadRequest("El cuerpo de la solicitud está vacío.");
 
-            // Validar que el PatientId exista
-            var patientExists = await _context.Patients.AnyAsync(p => p.Id == admissionDTO.PatientId);
-            if (!patientExists)
-                return BadRequest("El PatientId no existe.");
+            // Validar que el PetId exista
+            var petExists = await _context.Pets.AnyAsync(p => p.Id == admissionDTO.PetId);
+            if (!petExists)
+                return BadRequest("El PetId no existe.");
 
             // Validar que el VetId exista (si lo envías en el DTO)
             var vetExists = await _context.Vets.AnyAsync(v => v.Id == admissionDTO.VetId);
@@ -85,13 +85,13 @@ namespace PetSavingBackend.Controllers
                 return NotFound();
             }
 
-            if(updateDTO.PatientId.HasValue)
+            if(updateDTO.PetId.HasValue)
             {
-                var patientExists = await _context.Patients.AnyAsync(p => p.Id == updateDTO.PatientId.Value);
-                if (!patientExists)
-                    return BadRequest("El PatientId no existe.");
+                var petExists = await _context.Pets.AnyAsync(p => p.Id == updateDTO.PetId.Value);
+                if (!petExists)
+                    return BadRequest("El PetId no existe.");
 
-                admissionModel.PatientId=updateDTO.PatientId.Value;
+                admissionModel.PetId=updateDTO.PetId.Value;
             }
 
             if(updateDTO.VetId.HasValue)

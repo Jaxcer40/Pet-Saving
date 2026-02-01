@@ -8,8 +8,8 @@ namespace PetSavingBackend.DTOs.Admission
 {
     public class UpdateAdmissionDTO
     {
-        // llave foranea hacia Patient     
-        public int? PatientId { get; set; }
+        // llave foranea hacia Pet     
+        public int? PetId { get; set; }
 
         // llave foranea hacia Vet
         public int? VetId { get; set; }

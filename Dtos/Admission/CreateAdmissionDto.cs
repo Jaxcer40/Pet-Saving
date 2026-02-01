@@ -8,9 +8,9 @@ namespace PetSavingBackend.DTOs.Admission
 {
     public class CreateAdmissionDTO
     {
-        // llave foranea hacia Patient
+        // llave foranea hacia Pet
         [Required]
-        public int PatientId { get; set; }
+        public int PetId { get; set; }
 
         // llave foranea hacia Vet
         [Required]

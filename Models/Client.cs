@@ -32,8 +32,8 @@ namespace PetSavingBackend.Models
         
         public string EmergencyContactPhone { get; set; } = string.Empty;
 
-        //relacion uno a muchos con Patient
-        public ICollection<Patient> Patients { get; set; } = new List<Patient>();
+        //relacion uno a muchos con Pet
+        public ICollection<Pet> Pets { get; set; } = new List<Pet>();
 
         //relacion uno a muchos con Appointmet
         public ICollection<Appointmet> Appointmets { get; set; } = new List<Appointmet>();

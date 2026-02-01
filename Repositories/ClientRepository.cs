@@ -53,7 +53,7 @@ namespace PetSavingBackend.Repositories
 
         public async Task<PagedResponse<Client>> GetPagedAsync(int pageNumber, int pageSize)
         {
-            var query = _context.Clients.AsQueryable();
+            var query = _context.Clients.OrderBy(c => c.Id).AsQueryable();
 
             var totalRecords = await query.CountAsync();
 

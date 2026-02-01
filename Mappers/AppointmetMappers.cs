@@ -22,10 +22,10 @@ namespace PetSavingBackend.Mappers
                 FollowUpDate=appointmetModel.FollowUpDate,
 
                 
-                Patient = new PatientSummaryDTO
+                Pet = new PetSummaryDTO
                 {
-                    Name = appointmetModel.Patient.Name,
-                    Species = appointmetModel.Patient.Species
+                    Name = appointmetModel.Pet.Name,
+                    Species = appointmetModel.Pet.Species
 
                 },
 
@@ -53,9 +53,9 @@ namespace PetSavingBackend.Mappers
                 Notes= appointmetDTO.Notes,
                 FollowUpDate=appointmetDTO.FollowUpDate,
 
-                    //Llaves foraneas
-                ClientId= appointmetDTO.PatientId,
-                PatientId = appointmetDTO.PatientId,
+                //Llaves foraneas
+                ClientId= appointmetDTO.ClientId,
+                PetId = appointmetDTO.PetId,
                 VetId = appointmetDTO.VetId,
             };
         }

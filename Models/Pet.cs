@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace PetSavingBackend.Models
 {
-    public class Patient
+    public class Pet
     {
         public int Id { get; set; }
 
         // llave foranea hacia Client
         public int ClientId { get; set; }
-
         public Client Client { get; set; } = null!;
 
         public string Name { get; set; } = string.Empty;
@@ -30,6 +29,8 @@ namespace PetSavingBackend.Models
         public decimal Weight { get; set; }
 
         public DateTime AdoptedDate { get; set; }
+
+        public int Rating { get; set; }
 
         //relacion uno a muchos con Appointmet
         public ICollection<Appointmet> Appointmets { get; set; } = new List<Appointmet>();

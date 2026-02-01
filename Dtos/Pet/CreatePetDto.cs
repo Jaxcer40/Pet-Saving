@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PetSavingBackend.DTOs.Patient
+namespace PetSavingBackend.DTOs.Pet
 {
-    public class CreatePatientDTO
+    public class CreatePetDTO
     {
         //Llave foranea a Client
         [Required]
@@ -37,5 +37,7 @@ namespace PetSavingBackend.DTOs.Patient
         public decimal Weight { get; set; }
 
         public DateTime AdoptedDate { get; set; }
+
+        public int Rating { get; set; }
     }
 }

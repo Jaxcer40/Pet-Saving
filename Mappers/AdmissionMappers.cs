@@ -20,10 +20,10 @@ namespace PetSavingBackend.Mappers
                 AdmissionReason= admissionModel.AdmissionReason,
                 CageNumber= admissionModel.CageNumber,
 
-                Patient = new PatientSummaryDTO
+                Pet = new PetSummaryDTO
                 {
-                    Name = admissionModel.Patient.Name,
-                    Species = admissionModel.Patient.Species
+                    Name = admissionModel.Pet.Name,
+                    Species = admissionModel.Pet.Species
                 },
 
                 Vet= new VetSummaryDTO
@@ -47,7 +47,7 @@ namespace PetSavingBackend.Mappers
 
                 // Aquí simplemente asignas los Ids
                 //Son llaves foraneas 
-                PatientId = admissionDTO.PatientId,
+                PetId = admissionDTO.PetId,
                 VetId = admissionDTO.VetId
 
             };

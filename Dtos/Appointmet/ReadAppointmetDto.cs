@@ -9,8 +9,8 @@ namespace PetSavingBackend.DTOs.Appointmet
     {
         public int Id { get; set; }
 
-        //llave foranea hacia Patient
-        public PatientSummaryDTO Patient {get; set;}=null!;
+        //llave foranea hacia Pet
+        public PetSummaryDTO Pet {get; set;}=null!;
 
         //llave foranea hacia Client
         public ClientSummaryDTO Client {get; set;}=null!;
@@ -29,7 +29,7 @@ namespace PetSavingBackend.DTOs.Appointmet
         public DateOnly FollowUpDate { get; set; }
     }
 
-    public class PatientSummaryDTO
+    public class PetSummaryDTO
     {
         public string Name {get; set;} = string.Empty;
         public string Species { get; set; } = string.Empty;

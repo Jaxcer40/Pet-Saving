@@ -21,7 +21,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(Options => Options.UseSqlite
 
 
 //Dependency Injection 
-builder.Services.AddScoped<IPatientRepository, PatientRepository>();
+builder.Services.AddScoped<IPetRepository, PetRepository>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 
 // Este es el punto donde se configura la canalización de solicitudes HTTP.

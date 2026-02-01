@@ -5,44 +5,44 @@ using System.Linq;
 using System.Threading;
 using PetSavingBackend.Data;
 using PetSavingBackend.Mappers;
-using PetSavingBackend.DTOs.Patient;
+using PetSavingBackend.DTOs.Pet;
 using Microsoft.EntityFrameworkCore;
 using PetSavingBackend.Interfaces;
 using PetSavingBackend.Helper;
 
 namespace PetSavingBackend.Controllers
 {
-    [Route("api/patient")]
+    [Route("api/pet")]
     [ApiController]
 
-    //Get de Patient
-    public class PatientController : ControllerBase
+    //Get de Pet
+    public class PetController : ControllerBase
     {
-        private readonly IPatientRepository _patientRepo;
-        public PatientController(IPatientRepository patientRepo)
+        private readonly IPetRepository _petRepo;
+        public PetController(IPetRepository petRepo)
         {
-            _patientRepo=patientRepo;
+            _petRepo=petRepo;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var patients = await _patientRepo.GetAllAsync();
-            return Ok(patients.Select(c=>c.ToReadPatientDTO()));
+            var pets = await _petRepo.GetAllAsync();
+            return Ok(pets.Select(c=>c.ToReadPetDTO()));
         }
 
         [HttpGet("paged")]
-        public async Task<IActionResult> GetPatientsPaged(
+        public async Task<IActionResult> GetPetsPaged(
             int pageNumber = 1,
             int pageSize = 10)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var response = await _patientRepo.GetPagedAsync(pageNumber, pageSize);
+            var response = await _petRepo.GetPagedAsync(pageNumber, pageSize);
 
-            var dtoResponse = new PagedResponse<ReadPatientDTO>(
-                response.Data.Select(p => p.ToReadPatientDTO()).ToList(),
+            var dtoResponse = new PagedResponse<ReadPetDTO>(
+                response.Data.Select(p => p.ToReadPetDTO()).ToList(),
                 response.TotalRecords,
                 response.PageNumber,
                 response.PageSize
@@ -56,34 +56,34 @@ namespace PetSavingBackend.Controllers
         [HttpGet ("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
-            var patient = await _patientRepo.GetByIdAsync(id);
-            if(patient== null)
+            var pet = await _petRepo.GetByIdAsync(id);
+            if(pet== null)
             {
                 return NotFound();
             }
 
-            return Ok(patient.ToReadPatientDTO());
+            return Ok(pet.ToReadPetDTO());
         }
 
-        //Post para patient
+        //Post para pet
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreatePatientDTO patientDTO)
+        public async Task<IActionResult> Create([FromBody] CreatePetDTO petDTO)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             // Validar que el DTO no sea nulo
-            if (patientDTO == null)
+            if (petDTO == null)
                 return BadRequest("El cuerpo de la solicitud está vacío.");
 
-            var patientModel = patientDTO.ToPatientFromCreateDTO();
-            await _patientRepo.CreateAsync(patientModel);
-            return CreatedAtAction(nameof(GetById),new {id = patientModel.Id}, patientModel.ToReadPatientDTO());
+            var petModel = petDTO.ToPetFromCreateDTO();
+            await _petRepo.CreateAsync(petModel);
+            return CreatedAtAction(nameof(GetById),new {id = petModel.Id}, petModel.ToReadPetDTO());
         }
 
         [HttpPatch("{id:int}")]
-        public async Task<IActionResult> Patch(int id, [FromBody] UpdatePatientDTO updateDTO)
+        public async Task<IActionResult> Patch(int id, [FromBody] UpdatePetDTO updateDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -92,14 +92,14 @@ namespace PetSavingBackend.Controllers
             if (updateDTO == null)
                 return BadRequest("El cuerpo de la solicitud está vacío.");
 
-            var patientModel= await _patientRepo.PatchAsync(id, updateDTO);
+            var petModel= await _petRepo.PatchAsync(id, updateDTO);
 
-            if (patientModel == null)
+            if (petModel == null)
             {
                 return NotFound();
             }
 
-            return Ok(patientModel.ToReadPatientDTO());
+            return Ok(petModel.ToReadPetDTO());
         }
 
         //Delete por id
@@ -107,8 +107,8 @@ namespace PetSavingBackend.Controllers
         [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var patientModel=  await _patientRepo.DeleteAsync(id);
-            if (patientModel == null)
+            var petModel=  await _petRepo.DeleteAsync(id);
+            if (petModel == null)
             {
                 return NotFound();
             }

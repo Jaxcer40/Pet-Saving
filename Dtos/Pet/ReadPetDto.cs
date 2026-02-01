@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PetSavingBackend.DTOs.Patient
+namespace PetSavingBackend.DTOs.Pet
 {
-    public class ReadPatientDTO
+    public class ReadPetDTO
     {
         public int Id {get; set;}
 
@@ -25,6 +25,8 @@ namespace PetSavingBackend.DTOs.Patient
         public decimal Weight { get; set; }
 
         public DateTime AdoptedDate { get; set; }
+
+        public int Rating { get; set; }
     }
 
     public class ClientSummaryDTO

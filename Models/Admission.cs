@@ -12,9 +12,9 @@ namespace PetSavingBackend.Models
     {
         public int Id { get; set; }
 
-        // llave foranea hacia Patient
-        public int PatientId { get; set; }
-        public Patient Patient { get; set; } = null!;  
+        // llave foranea hacia Pet  
+        public int PetId { get; set; }
+        public Pet Pet { get; set; } = null!;  
 
         // llave foranea hacia Vet
         public int VetId { get; set; }

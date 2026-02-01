@@ -51,7 +51,7 @@ namespace PetSavingBackend.Controllers
             if (statusDTO == null)
                 return BadRequest("El cuerpo de la solicitud está vacío.");
 
-            // Validar que el PatientId exista
+            // Validar que el AdmissionId exista
             var admissionExists = await _context.Admissions.AnyAsync(p => p.Id == statusDTO.AdmissionId);
             if (!admissionExists)
                 return BadRequest("El AdmissionId no existe.");
