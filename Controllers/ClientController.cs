@@ -10,6 +10,7 @@ using System.Data;
 using Microsoft.EntityFrameworkCore;
 using PetSavingBackend.Interfaces;
 using PetSavingBackend.Models;
+using PetSavingBackend.Helper;
 
 namespace PetSavingBackend.Controllers
 {
@@ -28,6 +29,27 @@ namespace PetSavingBackend.Controllers
         {
             var clients= await _clientRepo.GetAllAsync();
             return Ok(clients.Select(c=>c.ToReadClientDTO()));
+        }
+
+        [HttpGet("paged")]
+        public async Task<IActionResult> GetClientPaged(
+            int pageNumber = 1,
+            int pageSize = 10)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var response = await _clientRepo.GetPagedAsync(pageNumber, pageSize);
+
+            var dtoResponse = new PagedResponse<ReadClientDTO>(
+                response.Data.Select(p => p.ToReadClientDTO()).ToList(),
+                response.TotalRecords,
+                response.PageNumber,
+                response.PageSize
+            );
+
+
+            return Ok(dtoResponse);
         }
 
         [HttpGet("{id:int}")]

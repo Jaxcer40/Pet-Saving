@@ -9,6 +9,7 @@ using PetSavingBackend.DTOs.Patient;
 using Microsoft.EntityFrameworkCore;
 using PetSavingBackend.Mappers;
 using PetSavingBackend.Models;
+using PetSavingBackend.Helper;
 
 namespace PetSavingBackend.Repositories
 {
@@ -51,6 +52,20 @@ namespace PetSavingBackend.Repositories
             return await _context.Patients
                 .Include(p => p.Client)
                 .FirstOrDefaultAsync(p=>p.Id==id);
+        }
+
+        public async Task<PagedResponse<Patient>> GetPagedAsync(int pageNumber, int pageSize)
+        {
+            var query = _context.Patients.Include(p => p.Client).AsQueryable();
+
+            var totalRecords = await query.CountAsync();
+
+            var patients = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return new PagedResponse<Patient>(patients, totalRecords, pageNumber, pageSize);
         }
 
         public async Task<Patient?> PatchAsync(int id, UpdatePatientDTO updateDTO)

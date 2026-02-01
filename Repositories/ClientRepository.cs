@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using PetSavingBackend.Data;
 using PetSavingBackend.DTOs.Client;
+using PetSavingBackend.Helper;
 using PetSavingBackend.Interfaces;
 using PetSavingBackend.Models;
 
@@ -48,6 +49,20 @@ namespace PetSavingBackend.Repositories
         public async Task<Client?> GetByIdAsync(int id)
         {
             return await _context.Clients.FindAsync(id);
+        }
+
+        public async Task<PagedResponse<Client>> GetPagedAsync(int pageNumber, int pageSize)
+        {
+            var query = _context.Clients.AsQueryable();
+
+            var totalRecords = await query.CountAsync();
+
+            var clients = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return new PagedResponse<Client>(clients, totalRecords, pageNumber, pageSize);
         }
 
         public async Task<Client?> PatchAsync(int id, UpdateClientDTO updateDTO)
